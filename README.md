@@ -77,8 +77,8 @@ OPENAI_API_KEY=your_openai_api_key_here
 If you want to use vLLM to deploy Hugging Face models locally, configure the following in `.env`:
 
 ```env
-VLLM_URL=http://localhost:8000/v1
-VLLM_MODEL=Qwen/Qwen2.5-VL-32B-Instruct
+VLLM_URL="http://localhost:8000/v1"
+VLLM_MODEL="Qwen/Qwen2.5-VL-32B-Instruct"
 ```
 
 **Note:** You need to start the vLLM server before running experiments. See the [Experiment](#experiment) section for details.
@@ -104,7 +104,7 @@ The main entry point is `run_pruning.py`. You can configure the following parame
 | `--branching_factor` | int | `5` | Number of alternative thoughts at each step |
 | `--majority_judger_num` | int | `3` | Number of judges for majority voting |
 | `--token_count` | bool | `True` | Whether to count tokens during execution |
-| `--workdir` | str | `results/VIS` | Directory to save results |
+| `--workdir` | str | `results` | Directory to save results |
 | `--data_path` | str | `dataset/VIS.csv` | Path to input dataset |
 | `--n_runs` | int | `8` | Number of parallel runs |
 | `--executor` | str | `process` | Executor type (`process` or `thread`) |
@@ -119,8 +119,8 @@ If you set `--judge_model vllm` or `--generation_model vllm`, you need to deploy
 vllm serve Qwen/Qwen2.5-VL-32B-Instruct \
     --host 0.0.0.0 \
     --port 8000 \
-    --tensor-parallel-size 4 \
-    --gpu-memory-utilization 0.9
+    --tensor-parallel-size 2 \
+    --max-model-length 8192
 ```
 
 Make sure the `VLLM_URL` and `VLLM_MODEL` in your `.env` file match the deployed server.
@@ -144,7 +144,7 @@ python run_pruning.py \
     --branching_factor 5 \
     --majority_judger_num 3 \
     --token_count True \
-    --workdir results/VIS/selective_tts \
+    --workdir results \
     --data_path dataset/VIS.csv \
     --n_runs 8 \
     --executor process \
@@ -158,7 +158,7 @@ python run_pruning.py \
 After running an experiment, results are saved in the working directory with the following structure:
 
 ```
-results/VIS/baseline/VIS.csv_20251130-033521/
+results/VIS/
 └── runs/
     ├── run_00_meta_0/
     │   ├── data/
@@ -230,10 +230,6 @@ If you find our work useful, please consider citing:
 
 ---
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
-This work was supported by the University of Minnesota NLP group. We thank all contributors and collaborators who made this research possible.
+This work was supported by the [Minnesota NLP](https://minnesotanlp.github.io/) group of University of Minnesota. We thank all contributors and collaborators who made this research possible.
