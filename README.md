@@ -95,13 +95,13 @@ The main entry point is `run_pruning.py`. You can configure the following parame
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `--generation_model` | str | `gpt-4.1-nano` | Model for generating thoughts/solutions (e.g., `gpt-4.1-nano`, `gpt-4o`, `vllm`) |
-| `--judge_model` | str | `vllm` | Model for judging/evaluating thoughts (e.g., `vllm`, `gpt-4o`) |
+| `--generation_model` | str | `gpt-4.1-nano` | Model for generator of each stage in pipeline (e.g., `gpt-4.1-nano`, `gpt-4o`, `vllm`) |
+| `--judge_model` | str | `vllm` | Model for final stage evaluation/stage-local judge (e.g., `vllm`, `gpt-4o`) |
 | `--temperature` | float | `1.0` | Sampling temperature (higher = more random) |
 | `--top_p` | float | `0.9` | Nucleus sampling threshold |
 | `--max_tokens` | int | `1500` | Maximum tokens per generation |
-| `--pruning_ratio` | float | `0.0` | Ratio of thoughts to prune (0.0 = no pruning, 1.0 = prune all) |
-| `--branching_factor` | int | `5` | Number of alternative thoughts at each step |
+| `--pruning_ratio` | float | `0.0` | Pruning ratio (0.0 = no pruning, 1.0 = prune all) |
+| `--branching_factor` | int | `5` | Branching factor |
 | `--majority_judger_num` | int | `3` | Number of judges for majority voting |
 | `--token_count` | bool | `True` | Whether to count tokens during execution |
 | `--workdir` | str | `results` | Directory to save results |
