@@ -1,0 +1,22 @@
+# Core dependencies found in codebase
+pandas>=2.2.3
+Pillow>=11.1.0
+openai>=1.58.1
+anthropic>=0.42.0
+python-dotenv>=1.0.1
+
+# Additional data science and visualization dependencies
+matplotlib>=3.10.0
+seaborn>=0.13.2
+networkx>=3.4.2
+wordcloud>=1.9.3
+scipy>=1.15.1
+scikit-learn>=1.6.1
+
+# LLM inference
+vllm>=0.8.3
+
+# Common ML/Data dependencies (likely needed based on project context)
+numpy>=2.2.1
+torch>=2.5.1
+transformers>=4.47.1
