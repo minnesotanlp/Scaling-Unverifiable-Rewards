@@ -39,10 +39,10 @@ We recommend using the latest version of Conda to manage the environment. Please
 
 ```bash
 # Create a Conda environment
-conda create -n scaling-unverifiable-rewards python=3.10
+conda create -n insight-scaling python=3.10
 
 # Activate the environment
-conda activate scaling-unverifiable-rewards
+conda activate insight-scaling
 ```
 
 ### 3. Install Dependencies
