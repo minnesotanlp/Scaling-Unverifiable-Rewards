@@ -15,70 +15,60 @@ def parse_args():
     parser.add_argument(
         "--generation_model",
         type=str,
-        required=True,
         default="gpt-4.1-nano",
         help="Model to use for generating thoughts/solutions (e.g., gpt-4.1-nano, gpt-4o)"
     )
     parser.add_argument(
         "--judge_model",
         type=str,
-        required=True,
         default="vllm",
         help="Model to use for judging/evaluating thoughts (e.g., vllm, gpt-4o)"
     )
     parser.add_argument(
         "--temperature",
         type=float,
-        required=True,
         default=1.0,
         help="Sampling temperature for generation (higher = more random, lower = more deterministic)"
     )
     parser.add_argument(
         "--top_p",
         type=float,
-        required=True,
         default=0.9,
         help="Nucleus sampling parameter (top-p sampling threshold)"
     )
     parser.add_argument(
         "--max_tokens",
         type=int,
-        required=True,
         default=1500,
         help="Maximum number of tokens to generate per response"
     )
     parser.add_argument(
         "--pruning_ratio",
         type=float,
-        required=True,
         default=0.0,
         help="Ratio of thoughts to prune at each step (0.0 = no pruning, 1.0 = prune all)"
     )
     parser.add_argument(
         "--branching_factor",
         type=int,
-        required=True,
         default=5,
         help="Number of alternative thoughts to generate at each step"
     )
     parser.add_argument(
         "--majority_judger_num",
         type=int,
-        required=True,
         default=3,
         help="Number of judges to use for majority voting when evaluating thoughts"
     )
     parser.add_argument(
         "--token_count",
         type=lambda x: x.lower() in ['true', '1', 'yes'],
-        required=True,
         default=True,
         help="Whether to count tokens during execution (True/False)"
     )
     parser.add_argument(
         "--workdir",
         type=str,
-        required=True,
         default="results/VIS",
         help="Working directory to save results and logs"
     )
@@ -87,21 +77,18 @@ def parse_args():
     parser.add_argument(
         "--data_path",
         type=str,
-        required=True,
         default="dataset/VIS.csv",
         help="Path to the input dataset CSV file"
     )
     parser.add_argument(
         "--n_runs",
         type=int,
-        required=True,
         default=8,
         help="Number of parallel runs to execute"
     )
     parser.add_argument(
         "--executor",
         type=str,
-        required=True,
         default="process",
         choices=["process", "thread"],
         help="Type of executor to use for parallel execution (process or thread)"
@@ -109,7 +96,6 @@ def parse_args():
     parser.add_argument(
         "--max_workers",
         type=int,
-        required=True,
         default=max(20, os.cpu_count()),
         help="Maximum number of worker processes/threads for parallel execution"
     )
