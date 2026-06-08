@@ -12,7 +12,10 @@ from mm_agents.insight import InsightGenerator, InsightValidator
 from mm_agents.meta_judger import MetaJudger
 
 from tts_type import TTSConfig
+import logging
 import random
+
+logger = logging.getLogger(__name__)
 
 def _ensure_dir(p: str) -> str:
     os.makedirs(p, exist_ok=True)
@@ -53,6 +56,7 @@ def prune_metadata_candidates(judger: MetaJudger, candidates: List[Dict[str, Any
             keep_idx = set(ranking[:num_to_keep])
             candidates = [c for i, c in enumerate(candidates, 1) if i in keep_idx]
         except Exception as e:
+            logger.warning("metadata pruning failed (%s), falling back to random sampling", e)
             candidates = random.sample(candidates, max(1, int(len(candidates) * (1 - pruning_ratio))))
     return candidates, completion_token
 
@@ -69,6 +73,7 @@ def prune_directions(judger: MetaJudger, directions: List[Dict[str, Any]], pruni
             keep_idx = set(ranking[:num_to_keep])
             directions = [d for i, d in enumerate(directions, 1) if i in keep_idx]
         except Exception as e:
+            logger.warning("direction pruning failed (%s), falling back to random sampling", e)
             directions = random.sample(directions, max(1, int(len(directions) * (1 - pruning_ratio))))
     return directions, completion_token
 
@@ -86,6 +91,7 @@ def prune_insights(judger: MetaJudger, insights: Dict[str, List[str]], pruning_r
                 keep_idx = set(ranking[:num_to_keep])
                 insights[img_path] = [ins for i, ins in enumerate(ins_list, 1) if i in keep_idx]
             except Exception as e:
+                logger.warning("insight pruning failed for %s (%s), falling back to random sampling", img_path, e)
                 insights[img_path] = random.sample(ins_list, max(1, int(len(ins_list) * (1 - pruning_ratio))))
             tokens.extend(completion_token)
     return insights, tokens
